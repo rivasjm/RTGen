@@ -12,16 +12,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        LinearSystemGenerator<MastSystem, MastProcessor, MastFlow, MastTask> generator = new LinearSystemGenerator<>();
-        MastSystem system;
-        try {
-            system = generator.create(MastSystem.class, MastProcessor.class, MastFlow.class, MastTask.class);
-            system.writeSystem(new File("null"));
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
+        LinearSystemGenerator<MastSystem, MastProcessor, MastFlow, MastTask> generator;
+        generator = new LinearSystemGenerator<>(MastSystem.class, MastProcessor.class, MastFlow.class, MastTask.class);
+
+        MastSystem system = generator.create();
+        system.writeSystem(new File("null"));
 
 
     }

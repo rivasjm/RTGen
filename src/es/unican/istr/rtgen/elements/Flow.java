@@ -1,6 +1,7 @@
 package es.unican.istr.rtgen.elements;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,15 @@ public abstract class Flow {
     private Double deadline;
     private List<Task> tasks;
 
+    public Flow() {
+        tasks = new ArrayList<>();
+    }
+
+    public void addTask(Task aTask){
+        tasks.add(aTask);
+    }
+
+    // Abstract methods
     public abstract void writeFlow(File f);
 
 }
