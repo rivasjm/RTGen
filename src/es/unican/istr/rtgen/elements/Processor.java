@@ -22,6 +22,20 @@ public abstract class Processor {
         tasks.add(aTask);
     }
 
+    public void scaleUtilization(Double factor){
+        /*
+        Scales the utilization of the processor by a factor of "factor"
+         */
+        for (Task t: tasks) {
+            t.setWcet(t.getWcet()*factor);
+        }
+    }
+
+
+    // Utilization generation methods
+
+
+
 
     // Getter and Setters
 

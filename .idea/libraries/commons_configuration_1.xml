@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="commons-configuration-1">
+    <CLASSES>
+      <root url="file://$APPLICATION_HOME_DIR$/plugins/commons-configuration-1.10" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$APPLICATION_HOME_DIR$/plugins/commons-configuration-1.10/apidocs" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$APPLICATION_HOME_DIR$/plugins/commons-configuration-1.10" />
+    </SOURCES>
+    <jarDirectory url="file://$APPLICATION_HOME_DIR$/plugins/commons-configuration-1.10" recursive="false" />
+    <jarDirectory url="file://$APPLICATION_HOME_DIR$/plugins/commons-configuration-1.10" recursive="false" type="SOURCES" />
+  </library>
+</component>

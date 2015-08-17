@@ -1,6 +1,5 @@
 package es.unican.istr;
 
-import es.unican.istr.rtgen.elements.LinearSystemGenerator;
 import es.unican.istr.rtgen.mast.MastFlow;
 import es.unican.istr.rtgen.mast.MastProcessor;
 import es.unican.istr.rtgen.mast.MastSystem;
