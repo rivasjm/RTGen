@@ -13,10 +13,11 @@ public class Config {
     private String schedPolicy;
 
     private PeriodConfig period;
+    private DeadlineConfig deadline;
     private LocalizationOptions localization;
     private UtilizationConfig utilization;
 
-    public Config(Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Double monoFlows, String schedPolicy, PeriodConfig period, LocalizationOptions localization, UtilizationConfig utilization) {
+    public Config(Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Double monoFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
         this.nProcs = nProcs;
         this.nFlows = nFlows;
         this.nTasks = nTasks;
@@ -24,6 +25,7 @@ public class Config {
         this.monoFlows = monoFlows;
         this.schedPolicy = schedPolicy;
         this.period = period;
+        this.deadline = deadline;
         this.localization = localization;
         this.utilization = utilization;
     }
@@ -84,6 +86,14 @@ public class Config {
         this.period = period;
     }
 
+    public DeadlineConfig getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(DeadlineConfig deadline) {
+        this.deadline = deadline;
+    }
+
     public LocalizationOptions getLocalization() {
         return localization;
     }
@@ -99,4 +109,5 @@ public class Config {
     public void setUtilization(UtilizationConfig utilization) {
         this.utilization = utilization;
     }
+
 }

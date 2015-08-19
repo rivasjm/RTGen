@@ -3,6 +3,8 @@ package es.unican.istr.rtgen.mast;
 import es.unican.istr.rtgen.elements.Processor;
 
 import java.io.File;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 
 /**
  * Created by juanm on 11/08/2015.
@@ -10,7 +12,36 @@ import java.io.File;
 public class MastProcessor extends Processor {
 
     @Override
-    public void writeProcessor(File f) {
+    public void writeProcessor(OutputStream o) {
         System.out.println("MAST Processor Class");
+    }
+
+    public void writeProcessingResource(PrintWriter pw){
+
+        pw.format("Processing_Resource (\n");
+        pw.format("        Type                    => Regular_Processor,\n");
+        pw.format("        Name                    => CPU_%d,\n", getId());
+        pw.format("        Max_Interrupt_Priority  => 65535,\n");
+        pw.format("        Min_Interrupt_Priority  => 65535);\n\n");
+
+    }
+
+    public void writeScheduler(PrintWriter pw){
+
+        pw.format("Scheduler (\n");
+        pw.format("   Type            => Primary_Scheduler,\n");
+        pw.format("   Name            => s%d,\n", getId());
+        pw.format("   Host            => CPU_%d,\n", getId());
+
+        if (getSchedulingPolicy().equals("FP")) {
+            pw.format("   Policy          =>      ( Type                 => Fixed_Priority,\n");
+            pw.format("        Max_Priority            => 65534,\n");
+            pw.format("        Min_Priority            => 1));\n\n");
+        } else if (getSchedulingPolicy().equals("EDF")) {
+            pw.format("   Policy          =>      ( Type                 => EDF));\n\n");
+        } else {
+            throw new IllegalArgumentException("Scheduling policy "+ getSchedulingPolicy() +" not valid");
+        }
+
     }
 }

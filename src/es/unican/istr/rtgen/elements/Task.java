@@ -1,11 +1,14 @@
 package es.unican.istr.rtgen.elements;
 
 import java.io.File;
+import java.io.OutputStream;
 
 /**
  * Created by juanm on 11/08/2015.
  */
 public abstract class Task {
+
+    private String id;
 
     // Basic Characteristics
     private Double wcet;
@@ -14,6 +17,7 @@ public abstract class Task {
     private Integer priority;
     private Double schedulingDeadline;
     private Processor processor;
+    private Flow flow;
 
     // Results
     private Double wcrt;
@@ -96,8 +100,28 @@ public abstract class Task {
         this.jitter = jitter;
     }
 
+    public Flow getFlow() {
+        return flow;
+    }
+
+    public void setFlow(Flow flow) {
+        this.flow = flow;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void printOverview() {
+        System.out.format("(%f)%d", wcet, processor.getId());
+    }
+
     // Abstract methods
 
-    public abstract void writeTask(File f);
+    public abstract void writeTask(OutputStream o);
 
 }

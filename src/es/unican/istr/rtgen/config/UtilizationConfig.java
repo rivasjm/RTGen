@@ -5,43 +5,60 @@ package es.unican.istr.rtgen.config;
  */
 public class UtilizationConfig {
 
-    private Integer start;
-    private Integer step;
-    private Integer top;
+    private Double start;
+    private Double step;
+    private Double top;
+
+    private Double currentU; //Current utilization in the series
+
+    private Double bcetFactor; //bcet = wcet*bcetFactor
 
     private WCETGenerationOptions wcetMethod;
     private LoadBalancingOptions balancing;
 
-    public UtilizationConfig(Integer start, Integer step, Integer top, WCETGenerationOptions wcetMethod, LoadBalancingOptions balancing) {
+    public UtilizationConfig(Double start, Double step, Double top, Double bcetFactor, WCETGenerationOptions wcetMethod, LoadBalancingOptions balancing) {
         this.start = start;
         this.step = step;
         this.top = top;
+        if ((bcetFactor <= 1.0) && (bcetFactor >= 0.0)) {
+            this.bcetFactor = bcetFactor;
+        } else {
+            throw new IllegalArgumentException("BCET factor "+bcetFactor.toString()+ " not valid");
+        }
         this.wcetMethod = wcetMethod;
         this.balancing = balancing;
     }
 
-    public Integer getStart() {
+    public Double getStart() {
         return start;
     }
 
-    public void setStart(Integer start) {
+    public void setStart(Double start) {
         this.start = start;
     }
 
-    public Integer getStep() {
+    public Double getStep() {
         return step;
     }
 
-    public void setStep(Integer step) {
+    public void setStep(Double step) {
         this.step = step;
     }
 
-    public Integer getTop() {
+    public Double getTop() {
         return top;
     }
 
-    public void setTop(Integer top) {
+    public void setTop(Double top) {
         this.top = top;
+    }
+
+    public Double getBcetFactor() {
+        return bcetFactor;
+    }
+
+    public void setBcetFactor(Double bcetFactor) {
+        this.bcetFactor = bcetFactor;
     }
 
     public WCETGenerationOptions getWcetMethod() {
@@ -58,5 +75,13 @@ public class UtilizationConfig {
 
     public void setBalancing(LoadBalancingOptions balancing) {
         this.balancing = balancing;
+    }
+
+    public Double getCurrentU() {
+        return currentU;
+    }
+
+    public void setCurrentU(Double currentU) {
+        this.currentU = currentU;
     }
 }
