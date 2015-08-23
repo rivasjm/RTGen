@@ -1,6 +1,7 @@
-package es.unican.istr.rtgen.elements;
+package es.unican.istr.rtgen.system.elements;
 
-import es.unican.istr.rtgen.config.Config;
+import es.unican.istr.rtgen.system.elements.config.SystemConfig;
+import es.unican.istr.rtgen.tool.elements.config.RTToolConfig;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,14 +23,24 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
 
     private Random random;
 
-    public LinearSystem(Class<T> t, Class<F> f, Class<P> p, Config systemConfiguration, long randomSeed) {
+    private RTToolConfig toolConfig; //configuration of the tool with which the results where created
+
+    public LinearSystem(Class<T> t, Class<F> f, Class<P> p, SystemConfig systemConfiguration) {
         flows = new ArrayList<>();
         processors = new ArrayList<>();
         taskClass = t;
         flowClass = f;
         processorClass = p;
-        random = new Random(randomSeed);
+        random = new Random(systemConfiguration.getSeed());
         create(systemConfiguration);
+    }
+
+    public RTToolConfig getToolConfig() {
+        return toolConfig;
+    }
+
+    public void setToolConfig(RTToolConfig toolConfig) {
+        this.toolConfig = toolConfig;
     }
 
     public Double getSystemUtilization() {
@@ -42,12 +53,18 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
         for (F f: flows){
             f.printOverview();
         }
-        System.out.printf("\n");
+        //System.out.printf("\n");
         for (P p: processors) {
             p.printOverview();
             System.out.printf(" ");
         }
         System.out.printf(": %f\n", this.getSystemUtilization());
+    }
+
+    public void printResultsOverview() {
+        for (F f: flows){
+            f.printResultsOverview();
+        }
     }
 
     public List<P> getProcessors() {
@@ -58,6 +75,10 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
         return flows;
     }
 
+    public void setTaskResults(int flowId, String taskID, Double bcrt, Double wcrt, Double jitter){
+        flows.get(flowId-1).setTaskResults(taskID, bcrt, wcrt, jitter);
+    }
+
     // Abstract methods
 
     public abstract void writeSystem(File f);
@@ -65,7 +86,7 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
 
     // Private methods
 
-    private void create(Config c) {
+    private void create(SystemConfig c) {
         try {
 
             // Add processors
@@ -115,7 +136,7 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
                 case BALANCED: //every processor with the same utilization
                     for (P p: processors) {
                         p.setUtilization(c.getUtilization().getWcetMethod(), 0.01, random);
-                        p.scaleUtilization(c.getUtilization().getCurrentU()/0.01);
+                        p.scaleUtilization((c.getUtilization().getCurrentU()/100.0)/0.01);
                     }
                     break;
 
@@ -131,13 +152,13 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
                     }
                     ArrayList<Double> newUs = new ArrayList<Double>();
                     for (Double d: us) {
-                        newUs.add(d/sum/processors.size());
+                        newUs.add(d/sum*processors.size()*0.01);
                     }
 
                     // Set processors utilizations
                     for (int i=0; i<processors.size(); i++) {
-                        processors.get(i).setUtilization(c.getUtilization().getWcetMethod(), 0.01, random);
-                        processors.get(i).scaleUtilization(newUs.get(i)/0.01);
+                        processors.get(i).setUtilization(c.getUtilization().getWcetMethod(), newUs.get(i), random);
+                        processors.get(i).scaleUtilization((c.getUtilization().getCurrentU()/100.0)/0.01);
                     }
                     break;
             }

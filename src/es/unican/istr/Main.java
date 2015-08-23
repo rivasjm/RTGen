@@ -1,12 +1,17 @@
 package es.unican.istr;
 
-import es.unican.istr.rtgen.config.*;
-import es.unican.istr.rtgen.mast.MastFlow;
-import es.unican.istr.rtgen.mast.MastProcessor;
-import es.unican.istr.rtgen.mast.MastSystem;
-import es.unican.istr.rtgen.mast.MastTask;
-
-import java.io.File;
+import es.unican.istr.gen4mast.MastSeries;
+import es.unican.istr.rtgen.system.elements.config.*;
+import es.unican.istr.rtgen.tool.elements.config.RTToolConfig;
+import es.unican.istr.rtgen.system.mast.MastFlow;
+import es.unican.istr.rtgen.system.mast.MastProcessor;
+import es.unican.istr.rtgen.system.mast.MastSystem;
+import es.unican.istr.rtgen.system.mast.MastTask;
+import es.unican.istr.rtgen.tool.mast.MastTool;
+import es.unican.istr.rtgen.tool.mast.config.AnalysisOptions;
+import es.unican.istr.rtgen.tool.mast.config.AssignmentOptions;
+import es.unican.istr.rtgen.tool.mast.config.HOSPAConfig;
+import es.unican.istr.rtgen.tool.mast.config.MastConfig;
 
 public class Main {
 
@@ -15,17 +20,48 @@ public class Main {
 
         PeriodConfig period = new PeriodConfig(PeriodDistributionOptions.UNIFORM,100.0,100.0);
         DeadlineConfig deadline = new DeadlineConfig("T");
-        UtilizationConfig utilization = new UtilizationConfig(0.1, 0.01, 0.8, 0.0, WCETGenerationOptions.SCALE, LoadBalancingOptions.NON_BALANCED);
-        utilization.setCurrentU(0.4);
+        UtilizationConfig utilization = new UtilizationConfig(10, 1, 11, 0.0, WCETGenerationOptions.UUNIFAST, LoadBalancingOptions.NON_BALANCED);
+        utilization.setCurrentU(10);
 
-        Config config = new Config(5,5,10,false,0.0,"FP",period,deadline, LocalizationOptions.RANDOM,utilization);
+        SystemConfig systemConfig = new SystemConfig(new Long(10), 5,5,10,false,0.0,"FP",period,deadline, LocalizationOptions.RANDOM,utilization);
 
-        MastSystem<MastTask, MastFlow, MastProcessor> system = new MastSystem<>(config, 10);
+        MastConfig configTool = new MastConfig(
+                "D:\\Development\\RTGen",
+                "D:\\Development\\MAST\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
+                AnalysisOptions.HOLISTIC,
+                true,
+                AssignmentOptions.PD,
+                new HOSPAConfig(),
+                10.0,
+                false,
+                0.0,
+                false,
+                false
+        );
 
-        system.printOverview();
+        MastSeries.generate(systemConfig, configTool, "hola");
 
-        system.writeSystem(new File("out.txt"));
-
+//        MastSystem<MastTask, MastFlow, MastProcessor> system = new MastSystem<>(systemConfig, 10);
+//        system.printOverview();
+//
+//        RTToolConfig configTool = new MastConfig(
+//                "D:\\Development\\RTGen",
+//                "D:\\Development\\MAST\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
+//                AnalysisOptions.HOLISTIC,
+//                true,
+//                AssignmentOptions.PD,
+//                new HOSPAConfig(),
+//                10.0,
+//                false,
+//                0.0,
+//                false,
+//                false
+//                );
+//
+//        MastTool tool = new MastTool();
+//        tool.analyze(system, configTool);
+//
+//        system.printResultsOverview();
 
     }
 }

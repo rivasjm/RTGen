@@ -1,22 +1,22 @@
-package es.unican.istr.rtgen.config;
+package es.unican.istr.rtgen.system.elements.config;
 
 /**
  * Created by juanm on 17/08/2015.
  */
 public class UtilizationConfig {
 
-    private Double start;
-    private Double step;
-    private Double top;
+    private Integer start;
+    private Integer step;
+    private Integer top;
 
-    private Double currentU; //Current utilization in the series
+    private Integer currentU; //Current utilization in the series
 
     private Double bcetFactor; //bcet = wcet*bcetFactor
 
     private WCETGenerationOptions wcetMethod;
     private LoadBalancingOptions balancing;
 
-    public UtilizationConfig(Double start, Double step, Double top, Double bcetFactor, WCETGenerationOptions wcetMethod, LoadBalancingOptions balancing) {
+    public UtilizationConfig(Integer start, Integer step, Integer top, Double bcetFactor, WCETGenerationOptions wcetMethod, LoadBalancingOptions balancing) {
         this.start = start;
         this.step = step;
         this.top = top;
@@ -29,27 +29,27 @@ public class UtilizationConfig {
         this.balancing = balancing;
     }
 
-    public Double getStart() {
+    public Integer getStart() {
         return start;
     }
 
-    public void setStart(Double start) {
+    public void setStart(Integer start) {
         this.start = start;
     }
 
-    public Double getStep() {
+    public Integer getStep() {
         return step;
     }
 
-    public void setStep(Double step) {
+    public void setStep(Integer step) {
         this.step = step;
     }
 
-    public Double getTop() {
+    public Integer getTop() {
         return top;
     }
 
-    public void setTop(Double top) {
+    public void setTop(Integer top) {
         this.top = top;
     }
 
@@ -77,11 +77,11 @@ public class UtilizationConfig {
         this.balancing = balancing;
     }
 
-    public Double getCurrentU() {
+    public Integer getCurrentU() {
         return currentU;
     }
 
-    public void setCurrentU(Double currentU) {
+    public void setCurrentU(Integer currentU) {
         this.currentU = currentU;
     }
 }

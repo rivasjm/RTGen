@@ -1,8 +1,7 @@
-package es.unican.istr.rtgen.mast;
+package es.unican.istr.rtgen.system.mast;
 
-import es.unican.istr.rtgen.elements.Processor;
+import es.unican.istr.rtgen.system.elements.Processor;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
@@ -21,8 +20,8 @@ public class MastProcessor extends Processor {
         pw.format("Processing_Resource (\n");
         pw.format("        Type                    => Regular_Processor,\n");
         pw.format("        Name                    => CPU_%d,\n", getId());
-        pw.format("        Max_Interrupt_Priority  => 65535,\n");
-        pw.format("        Min_Interrupt_Priority  => 65535);\n\n");
+        pw.format("        Max_Interrupt_Priority  => 32767,\n");
+        pw.format("        Min_Interrupt_Priority  => 32767);\n");
 
     }
 
@@ -34,11 +33,12 @@ public class MastProcessor extends Processor {
         pw.format("   Host            => CPU_%d,\n", getId());
 
         if (getSchedulingPolicy().equals("FP")) {
-            pw.format("   Policy          =>      ( Type                 => Fixed_Priority,\n");
-            pw.format("        Max_Priority            => 65534,\n");
-            pw.format("        Min_Priority            => 1));\n\n");
+            pw.format("   Policy          =>      (\n");
+            pw.format("        Type                    => Fixed_Priority,\n");
+            pw.format("        Max_Priority            => 32766,\n");
+            pw.format("        Min_Priority            => 1));\n");
         } else if (getSchedulingPolicy().equals("EDF")) {
-            pw.format("   Policy          =>      ( Type                 => EDF));\n\n");
+            pw.format("   Policy          =>      ( Type                 => EDF));\n");
         } else {
             throw new IllegalArgumentException("Scheduling policy "+ getSchedulingPolicy() +" not valid");
         }

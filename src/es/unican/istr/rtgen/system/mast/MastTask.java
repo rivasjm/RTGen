@@ -1,6 +1,6 @@
-package es.unican.istr.rtgen.mast;
+package es.unican.istr.rtgen.system.mast;
 
-import es.unican.istr.rtgen.elements.Task;
+import es.unican.istr.rtgen.system.elements.Task;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -29,15 +29,15 @@ public class MastTask extends Task {
 
         pw.format("Scheduling_Server (\n");
         pw.format("        Type                       => Regular,\n");
-        pw.format("        Name    => SS_%s,", getId());
+        pw.format("        Name    => SS_%s,\n", getId());
         pw.format("        Server_Sched_Parameters         => (\n");
 
         if (getProcessor().getSchedulingPolicy().equals("FP")) {
             pw.format("                Type                    => Fixed_Priority_policy,\n");
-            pw.format("                The_Priority            => %d,", getPriority());
+            pw.format("                The_Priority            => %d,\n", getPriority());
         } else if (getProcessor().getSchedulingPolicy().equals("EDF")) {
             pw.format("                Type                    => EDF_policy,\n");
-            pw.format("                Deadline                => %f,", getSchedulingDeadline());
+            pw.format("                Deadline                => %f,\n", getSchedulingDeadline());
         } else {
             throw new IllegalArgumentException("Scheduling policy "+ getProcessor().getSchedulingPolicy() +" not valid");
         }

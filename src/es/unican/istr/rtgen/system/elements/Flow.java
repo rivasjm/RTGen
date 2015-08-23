@@ -1,10 +1,9 @@
-package es.unican.istr.rtgen.elements;
+package es.unican.istr.rtgen.system.elements;
 
-import es.unican.istr.rtgen.config.DeadlineConfig;
-import es.unican.istr.rtgen.config.LocalizationOptions;
-import es.unican.istr.rtgen.config.PeriodConfig;
+import es.unican.istr.rtgen.system.elements.config.DeadlineConfig;
+import es.unican.istr.rtgen.system.elements.config.LocalizationOptions;
+import es.unican.istr.rtgen.system.elements.config.PeriodConfig;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +134,25 @@ public abstract class Flow<T extends Task> {
             System.out.printf(" ");
         }
         System.out.printf(": %f\n", deadline);
+    }
+
+    public void printResultsOverview() {
+        System.out.format("%f : ", period);
+        for (Task t: tasks) {
+            System.out.printf("%f", t.getWcrt());
+            System.out.printf(" ");
+        }
+        System.out.printf(": %f\n", deadline);
+    }
+
+    public void setTaskResults(String taskID, Double bcrt, Double wcrt, Double jitter){
+        for (Task t: tasks){
+            if (t.getId().toLowerCase().equals(taskID.toLowerCase())) {
+                t.setBcrt(bcrt);
+                t.setWcrt(wcrt);
+                t.setJitter(jitter);
+            }
+        }
     }
 
     // Abstract methods

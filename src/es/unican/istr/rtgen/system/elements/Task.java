@@ -1,6 +1,5 @@
-package es.unican.istr.rtgen.elements;
+package es.unican.istr.rtgen.system.elements;
 
-import java.io.File;
 import java.io.OutputStream;
 
 /**

@@ -1,8 +1,7 @@
-package es.unican.istr.rtgen.elements;
+package es.unican.istr.rtgen.system.elements;
 
-import es.unican.istr.rtgen.config.WCETGenerationOptions;
+import es.unican.istr.rtgen.system.elements.config.WCETGenerationOptions;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package es.unican.istr.rtgen.config;
+package es.unican.istr.rtgen.system.elements.config;
 
 import org.apache.commons.lang3.math.NumberUtils;
 

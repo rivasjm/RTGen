@@ -1,10 +1,11 @@
-package es.unican.istr.rtgen.config;
+package es.unican.istr.rtgen.system.elements.config;
 
 /**
  * Created by juanm on 17/08/2015.
  */
-public class Config {
+public class SystemConfig {
 
+    private Long seed;
     private Integer nProcs;
     private Integer nFlows;
     private Integer nTasks;
@@ -17,7 +18,8 @@ public class Config {
     private LocalizationOptions localization;
     private UtilizationConfig utilization;
 
-    public Config(Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Double monoFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
+    public SystemConfig(Long theSeed, Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Double monoFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
+        this.seed = theSeed;
         this.nProcs = nProcs;
         this.nFlows = nFlows;
         this.nTasks = nTasks;
@@ -28,6 +30,14 @@ public class Config {
         this.deadline = deadline;
         this.localization = localization;
         this.utilization = utilization;
+    }
+
+    public Long getSeed() {
+        return seed;
+    }
+
+    public void setSeed(Long seed) {
+        this.seed = seed;
     }
 
     public Integer getnProcs() {
