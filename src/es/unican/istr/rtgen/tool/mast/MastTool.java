@@ -18,6 +18,7 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -87,12 +88,15 @@ public class MastTool implements RTTool {
         system.setToolConfig(config);
 
         //Execute MAST Tool
+        long beforeTime = System.nanoTime();
         Runtime r = Runtime.getRuntime();
         Process p = null;
         try {
             p = r.exec(cmd);
             p.waitFor();
+            long afterTime = System.nanoTime();
             integrateMASTResults(new File(outputFilePath), system);
+            system.setToolTimeElapsed(afterTime-beforeTime);
         } catch (IOException|InterruptedException e) {
             e.printStackTrace();
         }

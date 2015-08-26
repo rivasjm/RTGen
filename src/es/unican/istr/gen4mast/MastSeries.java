@@ -18,6 +18,10 @@ public class MastSeries {
         // This method generates the series (of utilizations) of systems specified in SystemConfig,
         // and applies the techniques specified in MastConfig. Stores results in dbLocation (NOSQL database)
 
+        double[] wcrtArray = new double[101];
+        double[] execTimeArray = new double[101];
+
+
         MastTool tool = new MastTool();
         for (int u=s.getUtilization().getStart(); u<=s.getUtilization().getTop(); u+=s.getUtilization().getStep()) {
 
@@ -31,8 +35,15 @@ public class MastSeries {
             // Analyze (results saved in system)
             tool.analyze(system, m);
             //system.printResultsOverview();
+
+            // Store results in series array of results
+            wcrtArray[u] = system.getSystemAvgWCRT();
+            execTimeArray[u] = system.getToolTimeElapsed();
+
+            // for now break always at first not schedulable in the series
+            if (!system.isSchedulable()){
+                break;
+            }
         }
-
-
     }
 }

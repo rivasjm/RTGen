@@ -155,6 +155,10 @@ public abstract class Flow<T extends Task> {
         }
     }
 
+    public Double getFlowWCRT() {
+        return this.tasks.get(this.tasks.size()-1).getWcrt();
+    }
+
     // Abstract methods
 
     public abstract void writeFlow(OutputStream o);

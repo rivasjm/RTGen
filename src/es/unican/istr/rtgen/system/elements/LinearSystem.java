@@ -23,7 +23,13 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
 
     private Random random;
 
+    private SystemConfig systemConfig;
     private RTToolConfig toolConfig; //configuration of the tool with which the results where created
+
+    private long toolTimeElapsed; // Time elapsed to execute tool with this system
+
+
+    // Public methods
 
     public LinearSystem(Class<T> t, Class<F> f, Class<P> p, SystemConfig systemConfiguration) {
         flows = new ArrayList<>();
@@ -41,6 +47,18 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
 
     public void setToolConfig(RTToolConfig toolConfig) {
         this.toolConfig = toolConfig;
+    }
+
+    public void setSystemConfig(SystemConfig systemConfig) {
+        this.systemConfig = systemConfig;
+    }
+
+    public long getToolTimeElapsed() {
+        return toolTimeElapsed;
+    }
+
+    public void setToolTimeElapsed(long toolTimeElapsed) {
+        this.toolTimeElapsed = toolTimeElapsed;
     }
 
     public Double getSystemUtilization() {
@@ -79,6 +97,23 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
         flows.get(flowId-1).setTaskResults(taskID, bcrt, wcrt, jitter);
     }
 
+    public double getSystemAvgWCRT() {
+        Double sum = 0.0;
+        for (F f:this.flows) {
+            sum += f.getFlowWCRT();
+        }
+        return sum/this.flows.size();
+    }
+
+    public boolean isSchedulable(){
+        for (F f:this.flows){
+            if (f.getFlowWCRT() > f.getDeadline()){
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Abstract methods
 
     public abstract void writeSystem(File f);
@@ -88,6 +123,8 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
 
     private void create(SystemConfig c) {
         try {
+
+            this.setSystemConfig(c);
 
             // Add processors
             for (int i = 1; i <= c.getnProcs(); i++) {
