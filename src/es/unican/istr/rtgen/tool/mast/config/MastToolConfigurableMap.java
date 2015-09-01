@@ -1,7 +1,7 @@
 package es.unican.istr.rtgen.tool.mast.config;
 
 
-import es.unican.istr.rtgen.utils.ConfigurableOptionNotSet;
+import es.unican.istr.rtgen.exceptions.ConfigurableOptionNotSet;
 
 import java.util.EnumMap;
 import java.util.Map;

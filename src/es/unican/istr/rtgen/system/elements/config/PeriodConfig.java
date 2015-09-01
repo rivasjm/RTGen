@@ -6,10 +6,10 @@ package es.unican.istr.rtgen.system.elements.config;
 public class PeriodConfig {
 
     private PeriodDistributionOptions distribution;
-    private Double base;
-    private Double ratio;
+    private Float base;
+    private Float ratio;
 
-    public PeriodConfig(PeriodDistributionOptions distribution, Double base, Double ratio) {
+    public PeriodConfig(PeriodDistributionOptions distribution, Float base, Float ratio) {
         this.distribution = distribution;
         this.base = base;
         this.ratio = ratio;
@@ -23,19 +23,19 @@ public class PeriodConfig {
         this.distribution = distribution;
     }
 
-    public Double getBase() {
+    public Float getBase() {
         return base;
     }
 
-    public void setBase(Double base) {
+    public void setBase(Float base) {
         this.base = base;
     }
 
-    public Double getRatio() {
+    public Float getRatio() {
         return ratio;
     }
 
-    public void setRatio(Double ratio) {
+    public void setRatio(Float ratio) {
         this.ratio = ratio;
     }
 }

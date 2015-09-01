@@ -66,7 +66,7 @@ public abstract class Processor<T extends Task> {
         }
     }
 
-    public void setBestCaseUtilization(Double factor) {
+    public void setBestCaseUtilization(Float factor) {
         for (T t: tasks) {
             t.setBcet(t.getWcet()*factor);
         }

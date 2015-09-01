@@ -5,18 +5,24 @@ package es.unican.istr.rtgen.tool.mast.config;
  */
 public class HOSPAConfig {
 
-    public enum InitOptions{PD, NPD};
+    public enum InitOptions{PD(0), NPD(1);
+        private final int value;
+        InitOptions(int i) {
+            value = i;
+        }
+        public int getValue() { return value; }
+    };
 
     private InitOptions init;
-    private Double ka;
-    private Double kr;
+    private Float ka;
+    private Float kr;
     private Integer iterations;
     private Integer overIterations;
 
     public HOSPAConfig() {
     }
 
-    public HOSPAConfig(InitOptions init, Double ka, Double kr, Integer iterations, Integer overIterations) {
+    public HOSPAConfig(InitOptions init, Float ka, Float kr, Integer iterations, Integer overIterations) {
         this.init = init;
         this.ka = ka;
         this.kr = kr;
@@ -32,19 +38,19 @@ public class HOSPAConfig {
         this.init = init;
     }
 
-    public Double getKa() {
+    public Float getKa() {
         return ka;
     }
 
-    public void setKa(Double ka) {
+    public void setKa(Float ka) {
         this.ka = ka;
     }
 
-    public Double getKr() {
+    public Float getKr() {
         return kr;
     }
 
-    public void setKr(Double kr) {
+    public void setKr(Float kr) {
         this.kr = kr;
     }
 

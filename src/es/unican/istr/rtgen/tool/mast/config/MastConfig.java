@@ -14,9 +14,9 @@ public class MastConfig implements RTToolConfig {
     private Boolean sync;
     private AssignmentOptions assignment;
     private HOSPAConfig hospaConfig;
-    private Double stopFactor;
+    private Float stopFactor;
     private Boolean gsd;        //Forces Global Scheduling Deadlines in local clock EDF
-    private Double dsFactor;     //Scaling factor for LC-EDF-DS
+    private Float dsFactor;     //Scaling factor for LC-EDF-DS
     private Boolean calculateSlack;
     private Boolean jitterAvoidance;
 
@@ -24,7 +24,7 @@ public class MastConfig implements RTToolConfig {
         // TODO
     }
 
-    public MastConfig(String name, String workPath, String mastPath, AnalysisOptions analysis, Boolean sync, AssignmentOptions assignment, HOSPAConfig hospaConfig, Double stopFactor, Boolean gsd, Double dsFactor, Boolean calculateSlack, Boolean jitterAvoidance) {
+    public MastConfig(String name, String workPath, String mastPath, AnalysisOptions analysis, Boolean sync, AssignmentOptions assignment, HOSPAConfig hospaConfig, Float stopFactor, Boolean gsd, Float dsFactor, Boolean calculateSlack, Boolean jitterAvoidance) {
         this.name = name;
         this.workPath = workPath;
         this.mastPath = mastPath;
@@ -95,11 +95,11 @@ public class MastConfig implements RTToolConfig {
         this.hospaConfig = hospaConfig;
     }
 
-    public Double getStopFactor() {
+    public Float getStopFactor() {
         return stopFactor;
     }
 
-    public void setStopFactor(Double stopFactor) {
+    public void setStopFactor(Float stopFactor) {
         this.stopFactor = stopFactor;
     }
 
@@ -111,11 +111,11 @@ public class MastConfig implements RTToolConfig {
         this.gsd = gsd;
     }
 
-    public Double getDsFactor() {
+    public Float getDsFactor() {
         return dsFactor;
     }
 
-    public void setDsFactor(Double dsFactor) {
+    public void setDsFactor(Float dsFactor) {
         this.dsFactor = dsFactor;
     }
 

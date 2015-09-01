@@ -4,7 +4,15 @@ package es.unican.istr.rtgen.tool.mast.config;
  * Created by juanm on 19/08/2015.
  */
 public enum AnalysisOptions {
-    HOLISTIC, OFFSET, OFFSET_OPT, OFFSET_SLANTED, BRUTE_FORCE;
+    HOLISTIC(0), OFFSET(1), OFFSET_OPT(2), OFFSET_SLANTED(3), BRUTE_FORCE(4);
+
+    private final int value;
+
+    AnalysisOptions(int i) {
+         value = i;
+    }
+
+    public int getValue() { return value; }
 
     public static String mapArg(AnalysisOptions a) {
         switch (a) {

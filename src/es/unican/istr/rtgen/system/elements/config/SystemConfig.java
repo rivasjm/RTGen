@@ -5,12 +5,12 @@ package es.unican.istr.rtgen.system.elements.config;
  */
 public class SystemConfig {
 
-    private Long seed;
+    private Integer seed;
     private Integer nProcs;
     private Integer nFlows;
     private Integer nTasks;
     private Boolean randomLength;
-    private Double singleFlows;
+    private Float singleFlows;
     private String schedPolicy;
 
     private PeriodConfig period;
@@ -23,7 +23,7 @@ public class SystemConfig {
         // TODO
     }
 
-    public SystemConfig(Long theSeed, Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Double singleFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
+    public SystemConfig(Integer theSeed, Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Float singleFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
         this.seed = theSeed;
         this.nProcs = nProcs;
         this.nFlows = nFlows;
@@ -37,11 +37,11 @@ public class SystemConfig {
         this.utilization = utilization;
     }
 
-    public Long getSeed() {
+    public Integer getSeed() {
         return seed;
     }
 
-    public void setSeed(Long seed) {
+    public void setSeed(Integer seed) {
         this.seed = seed;
     }
 
@@ -69,7 +69,7 @@ public class SystemConfig {
         this.nTasks = nTasks;
     }
 
-    public Double getSingleFlows() {
+    public Float getSingleFlows() {
         return singleFlows;
     }
 
@@ -81,7 +81,7 @@ public class SystemConfig {
         this.randomLength = randomLength;
     }
 
-    public void setSingleFlows(Double singleFlows) {
+    public void setSingleFlows(Float singleFlows) {
         this.singleFlows = singleFlows;
     }
 

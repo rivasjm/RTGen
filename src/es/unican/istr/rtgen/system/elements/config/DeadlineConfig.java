@@ -8,7 +8,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 public class DeadlineConfig {
 
     private DeadlineOptions value;
-    private Double valueK;
+    private Float valueK;
 
     public DeadlineConfig(String s) {
         try {
@@ -18,7 +18,7 @@ public class DeadlineConfig {
             }
         } catch (IllegalArgumentException e){
             if (NumberUtils.isNumber(s)) {
-                valueK = Double.valueOf(s);
+                valueK = Float.valueOf(s);
                 value = DeadlineOptions.K;
             } else {
                 throw new IllegalArgumentException("Value "+s+" not a valid Deadline");
@@ -34,11 +34,11 @@ public class DeadlineConfig {
         this.value = value;
     }
 
-    public Double getValueK() {
+    public Float getValueK() {
         return valueK;
     }
 
-    public void setValueK(Double valueK) {
+    public void setValueK(Float valueK) {
         this.valueK = valueK;
     }
 

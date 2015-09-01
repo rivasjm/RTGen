@@ -11,12 +11,12 @@ public class UtilizationConfig {
 
     private Integer currentU; //Current utilization in the series
 
-    private Double bcetFactor; //bcet = wcet*bcetFactor
+    private Float bcetFactor; //bcet = wcet*bcetFactor
 
     private WCETGenerationOptions wcetMethod;
     private LoadBalancingOptions balancing;
 
-    public UtilizationConfig(Integer start, Integer step, Integer top, Double bcetFactor, WCETGenerationOptions wcetMethod, LoadBalancingOptions balancing) {
+    public UtilizationConfig(Integer start, Integer step, Integer top, Float bcetFactor, WCETGenerationOptions wcetMethod, LoadBalancingOptions balancing) {
         this.start = start;
         this.step = step;
         this.top = top;
@@ -53,11 +53,11 @@ public class UtilizationConfig {
         this.top = top;
     }
 
-    public Double getBcetFactor() {
+    public Float getBcetFactor() {
         return bcetFactor;
     }
 
-    public void setBcetFactor(Double bcetFactor) {
+    public void setBcetFactor(Float bcetFactor) {
         this.bcetFactor = bcetFactor;
     }
 
