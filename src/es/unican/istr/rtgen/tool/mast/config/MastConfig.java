@@ -7,6 +7,7 @@ import es.unican.istr.rtgen.tool.elements.config.RTToolConfig;
  */
 public class MastConfig implements RTToolConfig {
 
+    private String name;
     private String workPath;
     private String mastPath;
     private AnalysisOptions analysis;
@@ -19,8 +20,12 @@ public class MastConfig implements RTToolConfig {
     private Boolean calculateSlack;
     private Boolean jitterAvoidance;
 
+    public MastConfig(MastToolConfigurableMap map) {
+        // TODO
+    }
 
-    public MastConfig(String workPath, String mastPath, AnalysisOptions analysis, Boolean sync, AssignmentOptions assignment, HOSPAConfig hospaConfig, Double stopFactor, Boolean gsd, Double dsFactor, Boolean calculateSlack, Boolean jitterAvoidance) {
+    public MastConfig(String name, String workPath, String mastPath, AnalysisOptions analysis, Boolean sync, AssignmentOptions assignment, HOSPAConfig hospaConfig, Double stopFactor, Boolean gsd, Double dsFactor, Boolean calculateSlack, Boolean jitterAvoidance) {
+        this.name = name;
         this.workPath = workPath;
         this.mastPath = mastPath;
         this.analysis = analysis;
@@ -32,6 +37,14 @@ public class MastConfig implements RTToolConfig {
         this.dsFactor = dsFactor;
         this.calculateSlack = calculateSlack;
         this.jitterAvoidance = jitterAvoidance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getWorkPath() {

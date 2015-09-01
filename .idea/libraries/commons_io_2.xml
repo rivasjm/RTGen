@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="commons-io-2">
     <CLASSES>
-      <root url="file://$APPLICATION_HOME_DIR$/plugins/commons-io-2.4" />
+      <root url="file://$APPLICATION_HOME_DIR$/lib/commons-io-2.4" />
     </CLASSES>
     <JAVADOC>
-      <root url="file://$APPLICATION_HOME_DIR$/plugins/commons-io-2.4/docs" />
+      <root url="file://$APPLICATION_HOME_DIR$/lib/commons-io-2.4/docs" />
     </JAVADOC>
     <SOURCES>
-      <root url="file://$APPLICATION_HOME_DIR$/plugins/commons-io-2.4" />
+      <root url="file://$APPLICATION_HOME_DIR$/lib/commons-io-2.4" />
     </SOURCES>
-    <jarDirectory url="file://$APPLICATION_HOME_DIR$/plugins/commons-io-2.4" recursive="false" />
-    <jarDirectory url="file://$APPLICATION_HOME_DIR$/plugins/commons-io-2.4" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$APPLICATION_HOME_DIR$/lib/commons-io-2.4" recursive="false" />
+    <jarDirectory url="file://$APPLICATION_HOME_DIR$/lib/commons-io-2.4" recursive="false" type="SOURCES" />
   </library>
 </component>

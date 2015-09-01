@@ -135,7 +135,7 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
             }
 
             // Add e2e flows and tasks
-            Integer singleFlows = (int) (c.getMonoFlows()/100.0*c.getnFlows());
+            Integer singleFlows = (int) (c.getSingleFlows()/100.0*c.getnFlows());
             for (int i=1; i<=c.getnFlows(); i++){
                 F flow = flowClass.newInstance();
                 flow.setId(i);

@@ -10,7 +10,7 @@ public class SystemConfig {
     private Integer nFlows;
     private Integer nTasks;
     private Boolean randomLength;
-    private Double monoFlows;
+    private Double singleFlows;
     private String schedPolicy;
 
     private PeriodConfig period;
@@ -18,13 +18,18 @@ public class SystemConfig {
     private LocalizationOptions localization;
     private UtilizationConfig utilization;
 
-    public SystemConfig(Long theSeed, Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Double monoFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
+
+    public SystemConfig(LinearSystemConfigurableMap map){
+        // TODO
+    }
+
+    public SystemConfig(Long theSeed, Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Double singleFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
         this.seed = theSeed;
         this.nProcs = nProcs;
         this.nFlows = nFlows;
         this.nTasks = nTasks;
         this.randomLength = randomLength;
-        this.monoFlows = monoFlows;
+        this.singleFlows = singleFlows;
         this.schedPolicy = schedPolicy;
         this.period = period;
         this.deadline = deadline;
@@ -64,8 +69,8 @@ public class SystemConfig {
         this.nTasks = nTasks;
     }
 
-    public Double getMonoFlows() {
-        return monoFlows;
+    public Double getSingleFlows() {
+        return singleFlows;
     }
 
     public Boolean getRandomLength() {
@@ -76,8 +81,8 @@ public class SystemConfig {
         this.randomLength = randomLength;
     }
 
-    public void setMonoFlows(Double monoFlows) {
-        this.monoFlows = monoFlows;
+    public void setSingleFlows(Double singleFlows) {
+        this.singleFlows = singleFlows;
     }
 
     public String getSchedPolicy() {
