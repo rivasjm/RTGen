@@ -36,6 +36,19 @@ public class SystemConfig {
         this.localization = localization;
         this.utilization = utilization;
     }
+//
+//    public LinearSystemConfigurableMap getMap(){
+//        LinearSystemConfigurableMap map = new LinearSystemConfigurableMap();
+//
+//        map.put(LinearSystemConfigurableOptions.SEED, seed.toString());
+//        map.put(LinearSystemConfigurableOptions.N_PROCESSORS, nProcs.toString());
+//        map.put(LinearSystemConfigurableOptions.N_FLOWS, nFlows.toString());
+//        map.put(LinearSystemConfigurableOptions.N_TASKS, nTasks.toString());
+//        map.put(LinearSystemConfigurableOptions.RANDOM_LENGTH, randomLength.toString());
+//
+//
+//        return map;
+//    }
 
     public Integer getSeed() {
         return seed;

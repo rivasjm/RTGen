@@ -1,13 +1,15 @@
 package es.unican.istr.gen4mast;
 
+import es.unican.istr.rtgen.system.elements.LinearSystem;
+import es.unican.istr.rtgen.system.elements.config.DeadlineOptions;
 import es.unican.istr.rtgen.system.elements.config.LinearSystemConfigurableOptions;
+import es.unican.istr.rtgen.system.elements.config.SystemConfig;
+import es.unican.istr.rtgen.system.mast.MastSystem;
+import es.unican.istr.rtgen.tool.mast.config.MastConfig;
 import es.unican.istr.rtgen.tool.mast.config.MastToolConfigurableOptions;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by juanm on 22/08/2015.
@@ -35,6 +37,11 @@ public class DBHandler {
         }
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        con.close();
+        super.finalize();
+    }
 
     private void establishColumns() {
         for (LinearSystemConfigurableOptions o: LinearSystemConfigurableOptions.values()){
@@ -78,6 +85,10 @@ public class DBHandler {
                 case JITTER_AVOIDANCE: columns.put(o.name(), "BIT"); break;
             }
         }
+
+        // Results columns
+        columns.put("MSU", "INTEGER");
+        columns.put("SERIES", "VARBINARY(1620)"); //2*101*8+some paddding
     }
 
 
@@ -106,6 +117,94 @@ public class DBHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+
+    public void addResultsRow(SystemConfig c, MastConfig m, Integer msu, double[] wcrtArray, double[] execTimeArray) {
+        PreparedStatement p = null;
+
+        ArrayList<String> cols = new ArrayList<>();
+        for (LinearSystemConfigurableOptions o: LinearSystemConfigurableOptions.values()){
+            cols.add(o.name());
+        }
+        for (LinearSystemConfigurableOptions o: LinearSystemConfigurableOptions.values()){
+            cols.add(o.name());
+        }
+        cols.add("MSU");
+        cols.add("SERIES");
+        ArrayList<String> cols2 = new ArrayList<>();
+        for (int i=1; i<=cols.size(); i++){
+            cols2.add("?");
+        }
+        String query = String.format("INSERT INTO RT_RESULTS (%s) VALUES(%s)", String.join(",", cols), String.join(",", cols2));
+
+        try {
+            p = con.prepareStatement(query);
+
+            int i = 1;
+
+
+            // Store system characteristics
+
+            p.setInt(i++, c.getSeed());
+            p.setInt(i++, c.getnProcs());
+            p.setInt(i++, c.getnFlows());
+            p.setInt(i++, c.getnTasks());
+            p.setBoolean(i++, c.getRandomLength());
+            p.setFloat(i++, c.getSingleFlows());
+            p.setString(i++, c.getSchedPolicy());
+
+            p.setInt(i++, c.getPeriod().getDistribution().getValue());
+            p.setFloat(i++, c.getPeriod().getBase());
+            p.setFloat(i++, c.getPeriod().getRatio());
+
+            if (c.getDeadline().getValue() == DeadlineOptions.K) {
+                p.setString(i++, c.getDeadline().getValueK().toString());
+            } else {
+                p.setString(i++, c.getDeadline().getValue().name());
+            }
+
+            p.setInt(i++, c.getLocalization().getValue());
+
+            p.setInt(i++, c.getUtilization().getStart());
+            p.setInt(i++, c.getUtilization().getStep());
+            p.setInt(i++, c.getUtilization().getTop());
+            p.setFloat(i++, c.getUtilization().getBcetFactor());
+            p.setInt(i++, c.getUtilization().getWcetMethod().getValue());
+            p.setInt(i++, c.getUtilization().getBalancing().getValue());
+
+
+            // Store MAST options
+
+            p.setString(i++, m.getName());
+            p.setInt(i++, m.getAnalysis().getValue());
+            p.setBoolean(i++, m.getSync());
+            p.setInt(i++, m.getAssignment().getValue());
+
+            p.setInt(i++, m.getHospaConfig().getInit().getValue());
+            p.setFloat(i++, m.getHospaConfig().getKa());
+            p.setFloat(i++, m.getHospaConfig().getKr());
+            p.setInt(i++, m.getHospaConfig().getIterations());
+            p.setInt(i++, m.getHospaConfig().getOverIterations());
+
+            p.setFloat(i++, m.getStopFactor());
+
+            p.setBoolean(i++, m.getGsd());
+            p.setFloat(i++, m.getDsFactor());
+
+            p.setBoolean(i++, m.getCalculateSlack());
+            p.setBoolean(i++, m.getJitterAvoidance());
+
+
+            // Store Results
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

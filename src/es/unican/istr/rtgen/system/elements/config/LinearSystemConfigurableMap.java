@@ -11,6 +11,10 @@ import java.util.Map;
  */
 public class LinearSystemConfigurableMap extends EnumMap<LinearSystemConfigurableOptions, String> {
 
+    public LinearSystemConfigurableMap () {
+        super(LinearSystemConfigurableOptions.class);
+    }
+
     public LinearSystemConfigurableMap (Map<LinearSystemConfigurableOptions, String> map) throws ConfigurableOptionNotSet {
         super(LinearSystemConfigurableOptions.class);
         for (LinearSystemConfigurableOptions key: LinearSystemConfigurableOptions.values()){

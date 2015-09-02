@@ -1,5 +1,7 @@
 package es.unican.istr.rtgen.system.elements.config;
 
+import java.util.ArrayList;
+
 /**
  * Created by JuanCTR on 01/09/2015.
  */

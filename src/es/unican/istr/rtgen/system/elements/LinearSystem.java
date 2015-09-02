@@ -53,6 +53,10 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
         this.systemConfig = systemConfig;
     }
 
+    public SystemConfig getSystemConfig() {
+        return systemConfig;
+    }
+
     public long getToolTimeElapsed() {
         return toolTimeElapsed;
     }
@@ -209,8 +213,6 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
             e.printStackTrace();
         }
     }
-
-
 }
 
 
