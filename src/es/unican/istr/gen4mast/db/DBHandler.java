@@ -1,4 +1,4 @@
-package es.unican.istr.gen4mast;
+package es.unican.istr.gen4mast.db;
 
 import es.unican.istr.rtgen.system.elements.LinearSystem;
 import es.unican.istr.rtgen.system.elements.config.DeadlineOptions;
@@ -72,6 +72,8 @@ public class DBHandler {
         for (MastToolConfigurableOptions o: MastToolConfigurableOptions.values()){
             switch (o) {
                 case NAME: columns.put(o.name(), "VARCHAR(22)"); break;
+                case WORK_PATH: columns.put(o.name(), "VARCHAR(1)"); break; // for now not used
+                case MAST_PATH: columns.put(o.name(), "VARCHAR(1)"); break; // for now not used
                 case ANALYSIS_TOOL: columns.put(o.name(), "INTEGER"); break;
                 case SYNC: columns.put(o.name(), "BIT"); break;
                 case ASSIGNMENT_TOOL: columns.put(o.name(), "INTEGER"); break;
@@ -90,7 +92,7 @@ public class DBHandler {
 
         // Results columns
         columns.put("MSU", "INTEGER");
-        columns.put("SERIES", "VARBINARY(1620)"); //2*101*8+some paddding
+        columns.put("SERIES", "BINARY(1620)"); //2*101*8+some paddding
     }
 
 
@@ -130,7 +132,7 @@ public class DBHandler {
         for (LinearSystemConfigurableOptions o: LinearSystemConfigurableOptions.values()){
             cols.add(o.name());
         }
-        for (LinearSystemConfigurableOptions o: LinearSystemConfigurableOptions.values()){
+        for (MastToolConfigurableOptions o: MastToolConfigurableOptions.values()){
             cols.add(o.name());
         }
         cols.add("MSU");
@@ -141,7 +143,6 @@ public class DBHandler {
         }
         String query = String.format("INSERT INTO RT_RESULTS (%s) VALUES(%s)", String.join(",", cols), String.join(",", cols2));
 
-        System.out.println(query);
         try {
             p = con.prepareStatement(query);
 
@@ -177,6 +178,8 @@ public class DBHandler {
 
             // Store MAST options
             p.setString(i++, m.getName());
+            p.setString(i++, "");
+            p.setString(i++, "");
             p.setInt(i++, m.getAnalysis().getValue());
             p.setBoolean(i++, m.getSync());
             p.setInt(i++, m.getAssignment().getValue());

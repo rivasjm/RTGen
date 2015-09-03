@@ -27,8 +27,8 @@ public class Main {
 
         MastConfig configTool = new MastConfig(
                 "Ejemplo",
-                "C:\\Users\\JuanCTR\\CTR\\RTGen\\test",
-                "C:\\Users\\JuanCTR\\CTR\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
+                "D:\\Development\\RTGen\\test",
+                "D:\\Development\\MAST\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
                 AnalysisOptions.HOLISTIC,
                 true,
                 AssignmentOptions.PD,

@@ -1,5 +1,6 @@
 package es.unican.istr.gen4mast;
 
+import es.unican.istr.gen4mast.db.DBHandler;
 import es.unican.istr.rtgen.system.elements.config.SystemConfig;
 import es.unican.istr.rtgen.system.mast.MastFlow;
 import es.unican.istr.rtgen.system.mast.MastProcessor;
