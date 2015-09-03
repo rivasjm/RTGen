@@ -33,14 +33,10 @@ public class MastTool implements RTTool {
 
         // Prepare input and output(results) files locations
         File baseDir = new File (c.getWorkPath());
-        try {
-            baseDir.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        baseDir.mkdirs();
 
-        String inputFilePath = FilenameUtils.concat(c.getWorkPath(), "system.txt");
-        String outputFilePath = FilenameUtils.concat(c.getWorkPath(), "results.xml");
+        String inputFilePath = FilenameUtils.concat(c.getWorkPath(), String.format("system%d.txt",new Double(system.getSystemUtilization()*100).intValue()));
+        String outputFilePath = FilenameUtils.concat(c.getWorkPath(), String.format("results%d.xml", new Double(system.getSystemUtilization()*100).intValue()));
 
         //Prepares MAST arguments string
         ArrayList<String> args = new ArrayList<>();

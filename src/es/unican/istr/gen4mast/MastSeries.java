@@ -51,6 +51,7 @@ public class MastSeries {
         // Store results
         DBHandler db = new DBHandler(dbLocation);
         db.addResultsRow(s, m, msu, wcrtArray, execTimeArray);
+        db.close();
 
     }
 }
