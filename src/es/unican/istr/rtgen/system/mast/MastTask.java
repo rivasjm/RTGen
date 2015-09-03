@@ -4,6 +4,7 @@ import es.unican.istr.rtgen.system.elements.Task;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Locale;
 
 /**
  * Created by juanm on 11/08/2015.
@@ -20,8 +21,8 @@ public class MastTask extends Task {
         pw.format("Operation (\n");
         pw.format("     Type     => Simple,\n");
         pw.format("     Name     => O_%s,\n", getId());
-        pw.format("     Worst_Case_Execution_Time     => %f,\n", getWcet());
-        pw.format("     Best_Case_Execution_Time     => %f);\n\n", getBcet());
+        pw.format(Locale.US, "     Worst_Case_Execution_Time     => %f,\n", getWcet());
+        pw.format(Locale.US, "     Best_Case_Execution_Time     => %f);\n\n", getBcet());
 
     }
 

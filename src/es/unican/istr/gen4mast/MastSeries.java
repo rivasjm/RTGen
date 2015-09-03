@@ -20,7 +20,7 @@ public class MastSeries {
 
         double[] wcrtArray = new double[101];
         double[] execTimeArray = new double[101];
-
+        int msu = 0; // Maximum Schedulable Utilization
 
         MastTool tool = new MastTool();
         for (int u=s.getUtilization().getStart(); u<=s.getUtilization().getTop(); u+=s.getUtilization().getStep()) {
@@ -44,6 +44,12 @@ public class MastSeries {
             if (!system.isSchedulable()){
                 break;
             }
+            msu = u;
         }
+
+        // Store results
+        DBHandler db = new DBHandler(dbLocation);
+        db.addResultsRow(s, m, msu, wcrtArray, execTimeArray);
+
     }
 }

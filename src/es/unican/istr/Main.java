@@ -18,28 +18,29 @@ public class Main {
     public static void main(String[] args) {
 
 
-        PeriodConfig period = new PeriodConfig(PeriodDistributionOptions.UNIFORM,100.0,100.0);
+        PeriodConfig period = new PeriodConfig(PeriodDistributionOptions.UNIFORM,100.0f,100.0f);
         DeadlineConfig deadline = new DeadlineConfig("T");
-        UtilizationConfig utilization = new UtilizationConfig(10, 1, 11, 0.0, WCETGenerationOptions.UUNIFAST, LoadBalancingOptions.NON_BALANCED);
+        UtilizationConfig utilization = new UtilizationConfig(10, 1, 20, 0.0f, WCETGenerationOptions.UUNIFAST, LoadBalancingOptions.NON_BALANCED);
         utilization.setCurrentU(10);
 
-        SystemConfig systemConfig = new SystemConfig(new Long(10), 5,5,10,false,0.0,"FP",period,deadline, LocalizationOptions.RANDOM,utilization);
+        SystemConfig systemConfig = new SystemConfig(10,5,5,10,false,0.0f,"FP",period,deadline, LocalizationOptions.RANDOM,utilization);
 
         MastConfig configTool = new MastConfig(
-                "D:\\Development\\RTGen",
-                "D:\\Development\\MAST\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
+                "Ejemplo",
+                "C:\\Users\\JuanCTR\\CTR\\RTGen\\test",
+                "C:\\Users\\JuanCTR\\CTR\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
                 AnalysisOptions.HOLISTIC,
                 true,
                 AssignmentOptions.PD,
                 new HOSPAConfig(),
-                10.0,
+                10.0f,
                 false,
-                0.0,
+                0.0f,
                 false,
                 false
         );
 
-        MastSeries.generate(systemConfig, configTool, "hola");
+        MastSeries.generate(systemConfig, configTool, "results.db");
 
 //        MastSystem<MastTask, MastFlow, MastProcessor> system = new MastSystem<>(systemConfig, 10);
 //        system.printOverview();

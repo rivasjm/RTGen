@@ -13,11 +13,11 @@ public class HOSPAConfig {
         public int getValue() { return value; }
     };
 
-    private InitOptions init;
-    private Float ka;
-    private Float kr;
-    private Integer iterations;
-    private Integer overIterations;
+    private InitOptions init = InitOptions.PD;
+    private Float ka = 0.0f;
+    private Float kr = 0.0f;
+    private Integer iterations = 0;
+    private Integer overIterations = 0;
 
     public HOSPAConfig() {
     }

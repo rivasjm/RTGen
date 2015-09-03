@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by juanm on 11/08/2015.
@@ -36,7 +37,7 @@ public class MastFlow extends Flow {
         pw.format("      External_Events   => (\n");
         pw.format("                 (  Type        => Periodic,\n");
         pw.format("                    Name        => EE_%d,\n", getId());
-        pw.format("                    Period      => %f,\n", getPeriod());
+        pw.format(Locale.US, "                    Period      => %f,\n", getPeriod());
         pw.format("                    Max_Jitter  => 0,\n");
         pw.format("                    Phase       => 0)),\n\n");
 
@@ -51,7 +52,7 @@ public class MastFlow extends Flow {
                 pw.format(",\n");
                 pw.format("               Timing_Requirements      => (\n");
                 pw.format("                           Type         => Hard_Global_Deadline,\n");
-                pw.format("                           Deadline     => %f,\n", getPeriod());
+                pw.format(Locale.US, "                           Deadline     => %f,\n", getPeriod());
                 pw.format("                           Referenced_Event     => EE_%d))),\n\n", getId());
                 break;
             }

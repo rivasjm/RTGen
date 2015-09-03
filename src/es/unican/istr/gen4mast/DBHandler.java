@@ -7,6 +7,7 @@ import es.unican.istr.rtgen.system.elements.config.SystemConfig;
 import es.unican.istr.rtgen.system.mast.MastSystem;
 import es.unican.istr.rtgen.tool.mast.config.MastConfig;
 import es.unican.istr.rtgen.tool.mast.config.MastToolConfigurableOptions;
+import es.unican.istr.rtgen.utils.Utils;
 
 import java.sql.*;
 import java.util.*;
@@ -44,6 +45,7 @@ public class DBHandler {
     }
 
     private void establishColumns() {
+        columns = new HashMap<String,String>();
         for (LinearSystemConfigurableOptions o: LinearSystemConfigurableOptions.values()){
             switch (o) {
                 case SEED: columns.put(o.name(),"INTEGER");break;
@@ -139,14 +141,13 @@ public class DBHandler {
         }
         String query = String.format("INSERT INTO RT_RESULTS (%s) VALUES(%s)", String.join(",", cols), String.join(",", cols2));
 
+        System.out.println(query);
         try {
             p = con.prepareStatement(query);
 
             int i = 1;
 
-
             // Store system characteristics
-
             p.setInt(i++, c.getSeed());
             p.setInt(i++, c.getnProcs());
             p.setInt(i++, c.getnFlows());
@@ -174,9 +175,7 @@ public class DBHandler {
             p.setInt(i++, c.getUtilization().getWcetMethod().getValue());
             p.setInt(i++, c.getUtilization().getBalancing().getValue());
 
-
             // Store MAST options
-
             p.setString(i++, m.getName());
             p.setInt(i++, m.getAnalysis().getValue());
             p.setBoolean(i++, m.getSync());
@@ -196,9 +195,24 @@ public class DBHandler {
             p.setBoolean(i++, m.getCalculateSlack());
             p.setBoolean(i++, m.getJitterAvoidance());
 
+            // Store Maximum Schedulable Utilization
+            p.setInt(i++, msu);
 
-            // Store Results
+            // Prepare results array
+            double[] res = new double[wcrtArray.length+execTimeArray.length];
+            for (int j=0; j<wcrtArray.length;j++){
+                res[j] = wcrtArray[j];
+            }
+            for (int j=0; j<execTimeArray.length;j++){
+                res[j+wcrtArray.length]=execTimeArray[j];
+            }
 
+            // Save series results
+            p.setBytes(i++, Utils.doublesToBytes(res));
+
+            // Save results
+            p.executeUpdate();
+            p.close();
 
 
         } catch (SQLException e) {
