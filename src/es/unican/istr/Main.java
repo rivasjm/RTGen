@@ -36,8 +36,8 @@ public class Main {
 
             MastConfig configTool = new MastConfig(
                     "Ejemplo",
-                    String.format("D:\\Development\\RTGen\\test\\%d\\",seed),
-                    "D:\\Development\\MAST\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
+                    String.format("C:\\Users\\JuanCTR\\CTR\\RTGen\\test\\%d\\",seed),
+                    "C:\\Users\\JuanCTR\\CTR\\mast-bin-win-1-5-0-1\\mast-1-5-0-1\\mast_analysis.exe",
                     AnalysisOptions.HOLISTIC,
                     true,
                     AssignmentOptions.PD,
