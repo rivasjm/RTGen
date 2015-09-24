@@ -11,12 +11,14 @@ import es.unican.istr.rtgen.system.mast.results.REALTIMESITUATION;
 import es.unican.istr.rtgen.system.mast.results.TimingResult;
 import es.unican.istr.rtgen.system.mast.results.TransactionResults;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -31,12 +33,16 @@ public class MastTool implements RTTool {
         MastConfig c = (MastConfig) config;
         MastSystem s = (MastSystem) system;
 
+
         // Prepare input and output(results) files locations
         File baseDir = new File (c.getWorkPath());
         baseDir.mkdirs();
 
         String inputFilePath = FilenameUtils.concat(c.getWorkPath(), String.format("system%d.txt",new Double(system.getSystemUtilization()*100).intValue()));
         String outputFilePath = FilenameUtils.concat(c.getWorkPath(), String.format("results%d.xml", new Double(system.getSystemUtilization()*100).intValue()));
+
+        //Write system to file
+        system.writeSystem(new File(inputFilePath));
 
         //Prepares MAST arguments string
         ArrayList<String> args = new ArrayList<>();
@@ -76,9 +82,6 @@ public class MastTool implements RTTool {
         String cmd = String.join(" ", args);
         //System.out.println(cmd);
 
-        //Write system to file
-        system.writeSystem(new File(inputFilePath));
-
         //Store tool configuration in system
         system.setToolConfig(config);
 
@@ -86,13 +89,27 @@ public class MastTool implements RTTool {
         long beforeTime = System.nanoTime();
         Runtime r = Runtime.getRuntime();
         Process p = null;
+
+        //Check if input file is not yet created
+//        while (true) {
+//            System.out.println(inputFilePath);
+//            System.out.println("File length: "+new File(inputFilePath).length());
+//            break;
+//        }
+
         try {
             p = r.exec(cmd);
             p.waitFor();
+
+//            System.out.println(cmd);
+//            String text = IOUtils.toString(p.getInputStream(), StandardCharsets.UTF_8.name());
+//            System.out.println(text);
+
             long afterTime = System.nanoTime();
             integrateMASTResults(new File(outputFilePath), system);
             system.setToolTimeElapsed(afterTime-beforeTime);
         } catch (IOException|InterruptedException e) {
+            System.out.println("ERROR executing :"+cmd);
             e.printStackTrace();
         }
     }
@@ -134,6 +151,7 @@ public class MastTool implements RTTool {
 
 
         } catch (JAXBException e) {
+            System.out.println("Error in results file: "+results.getAbsolutePath());
             e.printStackTrace();
         }
     }

@@ -59,6 +59,7 @@ public class MastSystem<T extends Task, F extends Flow, P extends Processor> ext
                 mf.writeTransaction(pw);
             }
 
+            pw.flush();
             pw.close();
 
         } catch (FileNotFoundException e) {

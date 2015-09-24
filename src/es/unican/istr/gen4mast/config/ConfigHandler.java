@@ -28,8 +28,8 @@ public class ConfigHandler {
             prop.load(input);
             input.close();
 
-            for (Object o: prop.keySet()){
-                System.out.println(o);
+            for (LinearSystemConfigurableOptions s: systemOptionsSet){
+
             }
 
 

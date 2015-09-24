@@ -31,7 +31,7 @@ public class Main {
 
 
 
-        for (int seed=1;seed<100;seed++){
+        for (int seed=1;seed<=50;seed++){
             SystemConfig systemConfig = new SystemConfig(seed,5,5,5,false,0.0f,"FP",period,deadline, LocalizationOptions.RANDOM,utilization);
 
             MastConfig configTool = new MastConfig(
@@ -49,11 +49,13 @@ public class Main {
                     false
             );
 
-            new Thread() {
-                public void run() {
-                    MastSeries.generate(systemConfig, configTool, "results.db");
-                }
-            }.start();
+            MastSeries.generate(systemConfig, configTool, "results.db");
+
+//            new Thread() {
+//                public void run() {
+//                    MastSeries.generate(systemConfig, configTool, "results.db");
+//                }
+//            }.start();
 
         }
 
