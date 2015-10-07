@@ -3,16 +3,10 @@ package es.unican.istr;
 import es.unican.istr.gen4mast.MastSeries;
 import es.unican.istr.gen4mast.db.DBHandler;
 import es.unican.istr.rtgen.system.elements.config.*;
-import es.unican.istr.rtgen.tool.elements.config.RTToolConfig;
-import es.unican.istr.rtgen.system.mast.MastFlow;
-import es.unican.istr.rtgen.system.mast.MastProcessor;
-import es.unican.istr.rtgen.system.mast.MastSystem;
-import es.unican.istr.rtgen.system.mast.MastTask;
-import es.unican.istr.rtgen.tool.mast.MastTool;
-import es.unican.istr.rtgen.tool.mast.config.AnalysisOptions;
-import es.unican.istr.rtgen.tool.mast.config.AssignmentOptions;
-import es.unican.istr.rtgen.tool.mast.config.HOSPAConfig;
-import es.unican.istr.rtgen.tool.mast.config.MastConfig;
+import es.unican.istr.gen4mast.mast.config.AnalysisOptions;
+import es.unican.istr.gen4mast.mast.config.AssignmentOptions;
+import es.unican.istr.gen4mast.mast.config.HOSPAConfig;
+import es.unican.istr.gen4mast.mast.config.MastConfig;
 
 public class Main {
 
