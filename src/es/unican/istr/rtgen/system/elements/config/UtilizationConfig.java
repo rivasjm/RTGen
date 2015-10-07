@@ -29,6 +29,10 @@ public class UtilizationConfig {
         this.balancing = balancing;
     }
 
+    public UtilizationConfig(){
+        super();
+    }
+
     public Integer getStart() {
         return start;
     }

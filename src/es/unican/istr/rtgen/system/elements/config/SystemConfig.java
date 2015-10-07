@@ -36,6 +36,10 @@ public class SystemConfig {
         this.localization = localization;
         this.utilization = utilization;
     }
+
+    public SystemConfig() {
+        super();
+    }
 //
 //    public LinearSystemConfigurableMap getMap(){
 //        LinearSystemConfigurableMap map = new LinearSystemConfigurableMap();

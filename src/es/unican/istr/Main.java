@@ -49,7 +49,7 @@ public class Main {
                     false
             );
 
-            MastSeries.generate(systemConfig, configTool, "results.db");
+            MastSeries.run(systemConfig, configTool, "results.db");
 
 //            new Thread() {
 //                public void run() {

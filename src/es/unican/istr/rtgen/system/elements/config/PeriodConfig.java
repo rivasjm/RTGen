@@ -15,6 +15,10 @@ public class PeriodConfig {
         this.ratio = ratio;
     }
 
+    public PeriodConfig(){
+        super();
+    }
+
     public PeriodDistributionOptions getDistribution() {
         return distribution;
     }
