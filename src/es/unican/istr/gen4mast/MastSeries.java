@@ -1,5 +1,6 @@
 package es.unican.istr.gen4mast;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import es.unican.istr.gen4mast.db.DBHandler;
 import es.unican.istr.rtgen.system.elements.Flow;
 import es.unican.istr.rtgen.system.elements.config.*;
@@ -8,6 +9,9 @@ import es.unican.istr.rtgen.system.mast.MastProcessor;
 import es.unican.istr.rtgen.system.mast.MastSystem;
 import es.unican.istr.rtgen.system.mast.MastTask;
 import es.unican.istr.rtgen.tool.mast.MastTool;
+import es.unican.istr.rtgen.tool.mast.config.AnalysisOptions;
+import es.unican.istr.rtgen.tool.mast.config.AssignmentOptions;
+import es.unican.istr.rtgen.tool.mast.config.HOSPAConfig;
 import es.unican.istr.rtgen.tool.mast.config.MastConfig;
 
 /**
@@ -58,14 +62,18 @@ public class MastSeries {
 
     public static void main(String[] args) {
 
+        String dbLocation = args[0];
+        SystemConfig s = new SystemConfig();
         PeriodConfig p = new PeriodConfig();
         UtilizationConfig u = new UtilizationConfig();
-        SystemConfig s = new SystemConfig();
         DeadlineConfig deadline;
+
+        MastConfig m = new MastConfig();
+        HOSPAConfig h = new HOSPAConfig();
 
         String key;
         String value;
-        for (int i=0; i<args.length; i++) {
+        for (int i=1; i<args.length; i++) { // args[0] contains db location
             key = args[i].split("=")[0];    //SEED=1000, [0] is SEED, [1] is 1000
             value = args[i].split("=")[1];
 
@@ -91,24 +99,32 @@ public class MastSeries {
                 case "UTILIZATION_BALANCING": u.setBalancing(LoadBalancingOptions.valueOf(value)); break;
 
                 // MAST characteristics
-                case "NAME: columns.put(o.name(), "VARCHAR(22)"); break;
-                case "WORK_PATH: columns.put(o.name(), "VARCHAR(1)"); break; // for now not used
-                case "MAST_PATH: columns.put(o.name(), "VARCHAR(1)"); break; // for now not used
-                case "ANALYSIS_TOOL: columns.put(o.name(), "INTEGER"); break;
-                case SYNC: columns.put(o.name(), "BIT"); break;
-                case ASSIGNMENT_TOOL: columns.put(o.name(), "INTEGER"); break;
-                case HOSPA_INIT: columns.put(o.name(), "INTEGER"); break;
-                case HOSPA_Ka: columns.put(o.name(), "REAL"); break;
-                case HOSPA_Kr: columns.put(o.name(), "REAL"); break;
-                case HOSPA_ITERATIONS: columns.put(o.name(), "INTEGER"); break;
-                case HOSPA_OVERITERATIONS: columns.put(o.name(), "INTEGER"); break;
-                case ANALYSIS_STOP_FACTOR: columns.put(o.name(), "REAL"); break;
-                case LC_EDF_GSD: columns.put(o.name(), "BIT"); break;
-                case LC_EDF_DS_FACTOR: columns.put(o.name(), "REAL"); break;
-                case CALCULATE_SLACK: columns.put(o.name(), "BIT"); break;
-                case JITTER_AVOIDANCE: columns.put(o.name(), "BIT"); break;
+                case "NAME": m.setName(value); break;
+                case "WORK_PATH": m.setWorkPath(value); break;
+                case "MAST_PATH": m.setMastPath(value); break;
+                case "ANALYSIS_TOOL": m.setAnalysis(AnalysisOptions.valueOf(value)); break;
+                case "SYNC": m.setSync(Boolean.parseBoolean(value)); break;
+                case "ASSIGNMENT_TOOL": m.setAssignment(AssignmentOptions.valueOf(value)); break;
+                case "HOSPA_INIT": h.setInit(HOSPAConfig.InitOptions.valueOf(value)); break;
+                case "HOSPA_Ka": h.setKa(Float.parseFloat(value)); break;
+                case "HOSPA_Kr": h.setKr(Float.parseFloat(value)); break;
+                case "HOSPA_ITERATIONS": h.setIterations(Integer.parseInt(value)); break;
+                case "HOSPA_OVERITERATIONS": h.setOverIterations(Integer.parseInt(value)); break;
+                case "ANALYSIS_STOP_FACTOR": m.setStopFactor(Float.parseFloat(value)); break;
+                case "LC_EDF_GSD": ; m.setGsd(Boolean.parseBoolean(value));break;
+                case "LC_EDF_DS_FACTOR": m.setDsFactor(Float.parseFloat(value)); break;
+                case "CALCULATE_SLACK": m.setCalculateSlack(Boolean.parseBoolean(value)); break;
+                case "JITTER_AVOIDANCE": m.setJitterAvoidance(Boolean.parseBoolean(value)); break;
             }
         }
+
+        s.setPeriod(p);
+        u.setCurrentU(u.getStart());
+        s.setUtilization(u);
+        m.setHospaConfig(h);
+
+        // Launch Mast Series Generation
+        run(s, m, dbLocation);
 
     }
 }

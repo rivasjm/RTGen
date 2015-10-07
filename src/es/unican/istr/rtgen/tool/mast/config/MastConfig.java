@@ -39,6 +39,11 @@ public class MastConfig implements RTToolConfig {
         this.jitterAvoidance = jitterAvoidance;
     }
 
+    public MastConfig() {
+        super();
+    }
+
+
     public String getName() {
         return name;
     }

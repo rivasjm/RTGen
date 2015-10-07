@@ -20,6 +20,7 @@ public class HOSPAConfig {
     private Integer overIterations = 0;
 
     public HOSPAConfig() {
+        super();
     }
 
     public HOSPAConfig(InitOptions init, Float ka, Float kr, Integer iterations, Integer overIterations) {
