@@ -1,4 +1,4 @@
-package es.unican.istr.rtgen.system.elements.config;
+package es.unican.istr.rtgen.system.elements.config.deadline;
 
 import org.apache.commons.lang3.math.NumberUtils;
 

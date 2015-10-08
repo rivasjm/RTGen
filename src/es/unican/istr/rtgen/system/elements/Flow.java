@@ -1,8 +1,8 @@
 package es.unican.istr.rtgen.system.elements;
 
-import es.unican.istr.rtgen.system.elements.config.DeadlineConfig;
-import es.unican.istr.rtgen.system.elements.config.LocalizationOptions;
-import es.unican.istr.rtgen.system.elements.config.PeriodConfig;
+import es.unican.istr.rtgen.system.elements.config.deadline.DeadlineConfig;
+import es.unican.istr.rtgen.system.elements.config.localization.LocalizationOptions;
+import es.unican.istr.rtgen.system.elements.config.period.PeriodConfig;
 
 import java.io.OutputStream;
 import java.util.ArrayList;

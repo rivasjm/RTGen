@@ -1,4 +1,4 @@
-package es.unican.istr.rtgen.system.elements.config;
+package es.unican.istr.rtgen.system.elements.config.load;
 
 /**
  * Created by juanm on 17/08/2015.

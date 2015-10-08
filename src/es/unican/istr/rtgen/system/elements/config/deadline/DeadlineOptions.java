@@ -1,4 +1,4 @@
-package es.unican.istr.rtgen.system.elements.config;
+package es.unican.istr.rtgen.system.elements.config.deadline;
 
 /**
  * Created by juanm on 18/08/2015.

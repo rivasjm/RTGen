@@ -1,5 +1,10 @@
 package es.unican.istr.rtgen.system.elements.config;
 
+import es.unican.istr.rtgen.system.elements.config.deadline.DeadlineConfig;
+import es.unican.istr.rtgen.system.elements.config.load.UtilizationConfig;
+import es.unican.istr.rtgen.system.elements.config.localization.LocalizationOptions;
+import es.unican.istr.rtgen.system.elements.config.period.PeriodConfig;
+
 /**
  * Created by juanm on 17/08/2015.
  */
