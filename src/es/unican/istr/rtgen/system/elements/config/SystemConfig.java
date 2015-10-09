@@ -1,9 +1,12 @@
 package es.unican.istr.rtgen.system.elements.config;
 
 import es.unican.istr.rtgen.system.elements.config.deadline.DeadlineConfig;
+import es.unican.istr.rtgen.system.elements.config.load.LoadBalancingOptions;
 import es.unican.istr.rtgen.system.elements.config.load.UtilizationConfig;
+import es.unican.istr.rtgen.system.elements.config.load.WCETGenerationOptions;
 import es.unican.istr.rtgen.system.elements.config.localization.LocalizationOptions;
 import es.unican.istr.rtgen.system.elements.config.period.PeriodConfig;
+import es.unican.istr.rtgen.system.elements.config.period.PeriodDistributionOptions;
 
 /**
  * Created by juanm on 17/08/2015.
@@ -25,7 +28,38 @@ public class SystemConfig {
 
 
     public SystemConfig(LinearSystemConfigurableMap map){
-        // TODO
+        PeriodConfig p = new PeriodConfig();
+        UtilizationConfig u = new UtilizationConfig();
+        DeadlineConfig deadline;
+
+        for (LinearSystemConfigurableOptions o: map.keySet()){
+            String value = map.get(o).trim();
+            switch (o.name()){
+                case "SEED": this.setSeed(Integer.parseInt(value));break;
+                case "N_PROCESSORS": this.setnProcs(Integer.parseInt(value)); break;
+                case "N_FLOWS": this.setnFlows(Integer.parseInt(value)); break;
+                case "N_TASKS": this.setnTasks(Integer.parseInt(value)); break;
+                case "RANDOM_LENGTH": this.setRandomLength(Boolean.parseBoolean(value)); break;
+                case "SINGLE_FLOWS": this.setSingleFlows(Float.parseFloat(value)); break;
+                case "SCHED_POLICY": this.setSchedPolicy(value); break;
+                case "PERIOD_DISTRIBUTION": p.setDistribution(PeriodDistributionOptions.valueOf(value)); break;
+                case "PERIOD_BASE": p.setBase(Float.parseFloat(value));break;
+                case "PERIOD_RATIO": p.setRatio(Float.parseFloat(value)); break;
+                case "DEADLINE": deadline = new DeadlineConfig(value.trim()); this.setDeadline(deadline);break;
+                case "TASK_LOCALIZATION": this.setLocalization(LocalizationOptions.valueOf(value)); break;
+                case "UTILIZATION_START": u.setStart(Integer.parseInt(value)); break;
+                case "UTILIZATION_STEP": u.setStep(Integer.parseInt(value)); break;
+                case "UTILIZATION_TOP": u.setTop(Integer.parseInt(value)); break;
+                case "UTILIZATION_BCET_FACTOR": u.setBcetFactor(Float.parseFloat(value)); break;
+                case "UTILIZATION_WCET_METHOD": u.setWcetMethod(WCETGenerationOptions.valueOf(value)); break;
+                case "UTILIZATION_BALANCING": u.setBalancing(LoadBalancingOptions.valueOf(value)); break;
+            }
+        }
+
+        this.setPeriod(p);
+        u.setCurrentU(u.getStart());
+        this.setUtilization(u);
+
     }
 
     public SystemConfig(Integer theSeed, Integer nProcs, Integer nFlows, Integer nTasks, Boolean randomLength, Float singleFlows, String schedPolicy, PeriodConfig period, DeadlineConfig deadline, LocalizationOptions localization, UtilizationConfig utilization) {
