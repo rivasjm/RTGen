@@ -196,7 +196,7 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
                         newUs.add(d/sum*processors.size()*0.01);
                     }
 
-                    // Set processors utilizations
+                    // Scale processors utilizations to reach target
                     for (int i=0; i<processors.size(); i++) {
                         processors.get(i).setUtilization(c.getUtilization().getWcetMethod(), newUs.get(i), random);
                         processors.get(i).scaleUtilization((c.getUtilization().getCurrentU()/100.0)/0.01);
