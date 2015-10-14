@@ -3,6 +3,7 @@ package es.unican.istr.rtgen.system.elements;
 import es.unican.istr.rtgen.system.elements.config.deadline.DeadlineConfig;
 import es.unican.istr.rtgen.system.elements.config.localization.LocalizationOptions;
 import es.unican.istr.rtgen.system.elements.config.period.PeriodConfig;
+import es.unican.istr.rtgen.utils.Utils;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -35,15 +36,22 @@ public abstract class Flow<T extends Task> {
     }
 
     public void locateTasks(List<Processor> procs, LocalizationOptions type, Random r){
-        Processor lastProc = null;
-        Processor tempProc;
-        for (Task t: tasks){
-            switch (type){
-                case RANDOM:
-                    lastProc = procs.get(r.nextInt(procs.size()));
-                    t.setProcessor(lastProc);
-                    break;
-                case AVOID_CONSECUTIVE:
+
+        switch (type) {
+            case RANDOM:
+                ArrayList<Integer> shuffledProcIndexes =
+                        new ArrayList<>(Utils.shuffleToList(procs.size(), tasks.size(), r));
+
+                for (int i=0; i<tasks.size(); i++){
+                    tasks.get(i).setProcessor(procs.get(shuffledProcIndexes.get(i)));
+                }
+
+                break;
+
+            case AVOID_CONSECUTIVE:
+                Processor lastProc = null;
+                Processor tempProc;
+                for (Task t: tasks){
                     while (true){
                         tempProc = procs.get(r.nextInt(procs.size()));
                         if ((tempProc != lastProc) || (procs.size() == 1)){
@@ -52,8 +60,8 @@ public abstract class Flow<T extends Task> {
                             break;
                         }
                     }
-                    break;
-            }
+                }
+                break;
         }
     }
 
