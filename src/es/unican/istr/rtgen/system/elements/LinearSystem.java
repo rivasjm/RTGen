@@ -149,7 +149,7 @@ public abstract class LinearSystem<T extends Task, F extends Flow, P extends Pro
                 if (i<=singleFlows) {
                     nTasks = 1;
                 } else if (c.getRandomLength()) {
-                    nTasks = random.nextInt(c.getnTasks()-2)+2; // random integer between [2, number of tasks]
+                    nTasks = random.nextInt((c.getnTasks()+1)-2)+2; // random integer between [2, number of tasks]. lower limit is inclusive, but the upper limit is exclusive.
                 } else {
                     nTasks = c.getnTasks();
                 }
